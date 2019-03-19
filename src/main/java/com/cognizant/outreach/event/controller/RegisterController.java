@@ -3,6 +3,7 @@ package com.cognizant.outreach.event.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,13 @@ public class RegisterController {
 	}
 	
 	@PostMapping("/save")
+	@CrossOrigin("*")
 	public RegisterEvent saveRegistration(@RequestBody RegisterEvent registerEvent) {
 		return this.registerService.saveRegistration(registerEvent);
 	}
 	
 	@PostMapping("/bulksave")
+	@CrossOrigin("*")
 	public List<RegisterEvent> saveBulkRegistrations(@RequestBody List<RegisterEvent> registerEvents) {
 		return this.registerService.saveBulkRegistrations(registerEvents);
 	}
