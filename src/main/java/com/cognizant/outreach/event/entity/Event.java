@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,17 +20,22 @@ public class Event {
 	@Column(name="event_id")
 	private long id;
 	
-	@Column(name="beneficiary_id",nullable=false)
-	private long beneficiaryId;
+	@OneToOne
+	@JoinColumn(name="beneficiary_id")
+	private Beneficiary beneficiary;
 	
-	@Column(name="council_id",nullable=false)
-	private long councilId;
+	@OneToOne
+	@JoinColumn(name="council_id")
+	private Council council;
 	
-	@Column(name="project_id",nullable=false)
-	private long projectId;
+	@OneToOne
+	@JoinColumn(name="category_id")
+	@JoinColumn(name="project_id")
+	private ProjectCategory projectCategory;
 	
-	@Column(name="category_id",nullable=false)
-	private long categoryId;
+	@OneToOne
+	@JoinColumn(name="project_id",insertable=false, updatable=false)
+	private Project project;
 	
 	@Column(name="event_title",nullable=false)
 	private String title;
@@ -42,7 +49,7 @@ public class Event {
 	@Column(name="end_time", nullable=false)
 	private Timestamp endTime;
 	
-	@Column(name="event_status")
+	@Column(name="status")
 	private String status;
 	
 	@Column(name="volunteers_count", nullable=false)
@@ -54,8 +61,9 @@ public class Event {
 	@Column(name="poc_contact_no")
 	private String pocContactNo;
 	
-	@Column(name="location_id", nullable=false)
-	private long locationId;
+	@OneToOne
+	@JoinColumn(name="location_id")
+	private Location location;
 	
 	@Column(name="venue_address")
 	private String venueAddress;
@@ -94,36 +102,36 @@ public class Event {
 		this.id = id;
 	}
 
-	public long getBeneficiaryId() {
-		return beneficiaryId;
+	public Beneficiary getBeneficiary() {
+		return beneficiary;
 	}
 
-	public void setBeneficiaryId(long beneficiaryId) {
-		this.beneficiaryId = beneficiaryId;
+	public void setBeneficiary(Beneficiary beneficiary) {
+		this.beneficiary = beneficiary;
+	}
+	
+	public Council getCouncil() {
+		return council;
 	}
 
-	public long getCouncilId() {
-		return councilId;
+	public void setCouncil(Council council) {
+		this.council = council;
 	}
 
-	public void setCouncilId(long councilId) {
-		this.councilId = councilId;
+	public ProjectCategory getProjectCategory() {
+		return projectCategory;
 	}
 
-	public long getProjectId() {
-		return projectId;
+	public void setProjectCategory(ProjectCategory projectCategory) {
+		this.projectCategory = projectCategory;
 	}
 
-	public void setProjectId(long projectId) {
-		this.projectId = projectId;
+	public Project getProject() {
+		return project;
 	}
 
-	public long getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(long categoryId) {
-		this.categoryId = categoryId;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 	public String getTitle() {
@@ -190,12 +198,12 @@ public class Event {
 		this.pocContactNo = pocContactNo;
 	}
 
-	public long getLocationId() {
-		return locationId;
+	public Location getLocation() {
+		return location;
 	}
 
-	public void setLocationId(long locationId) {
-		this.locationId = locationId;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	public String getVenueAddress() {

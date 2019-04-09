@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,8 +21,9 @@ public class RegisterEvent {
 	@Column(name="registration_id")
 	private Long id;
 	
-	@Column(name="event_id",nullable=false)
-	private long eventId;
+	@OneToOne
+	@JoinColumn(name="event_id")
+	private Event event;
 	
 	@Column(name="scheduled_date",nullable=false)
 	private Date scheduledDate;
@@ -34,13 +37,13 @@ public class RegisterEvent {
 	@Column(name="associate_last_name",nullable=false)
 	private String associateLastName;
 	
-	@Column(name="hours_spent",nullable=false)
+	@Column(name="hours_spent")
 	private int hoursSpent;
 	
-	@Column(name="travel_hours",nullable=false)
+	@Column(name="travel_hours")
 	private int travelHours;
 	
-	@Column(name="impacted_lives",nullable=false)
+	@Column(name="impacted_lives")
 	private Long impactedLives;
 	
 	@Column(name="business_unit_id",nullable=false)
@@ -49,14 +52,19 @@ public class RegisterEvent {
 	@Column(name="status")
 	private String status;
 	
-	@Column(name="boarding_type_id",nullable=false)
-	private Long boardingTypeId;
+	@OneToOne
+	@JoinColumn(name="boarding_type_id")
+	private BoardingType boardingType;
 	
 	@Column(name="boarding_point_id")
 	private Long boardingPointId;
 	
 	@Column(name="drop_point_id")
 	private Long dropPointId;
+	
+	@OneToOne
+	@JoinColumn(name="location_id")
+	private Location location;
 	
 	@Column(name="created_time",nullable=false)
 	private Timestamp createdTime;
@@ -71,16 +79,32 @@ public class RegisterEvent {
 		return id;
 	}
 
+	public Long getBoardingPointId() {
+		return boardingPointId;
+	}
+
+	public void setBoardingPointId(Long boardingPointId) {
+		this.boardingPointId = boardingPointId;
+	}
+
+	public Long getDropPointId() {
+		return dropPointId;
+	}
+
+	public void setDropPointId(Long dropPointId) {
+		this.dropPointId = dropPointId;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public long getEventId() {
-		return eventId;
+	public Event getEvent() {
+		return event;
 	}
 
-	public void setEventId(long eventId) {
-		this.eventId = eventId;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 	public Date getScheduledDate() {
@@ -155,28 +179,12 @@ public class RegisterEvent {
 		this.status = status;
 	}
 
-	public Long getBoardingTypeId() {
-		return boardingTypeId;
+	public BoardingType getBoardingType() {
+		return boardingType;
 	}
 
-	public void setBoardingTypeId(Long boardingTypeId) {
-		this.boardingTypeId = boardingTypeId;
-	}
-
-	public Long getBoardingPointId() {
-		return boardingPointId;
-	}
-
-	public void setBoardingPointId(Long boardingPointId) {
-		this.boardingPointId = boardingPointId;
-	}
-
-	public Long getDropPointId() {
-		return dropPointId;
-	}
-
-	public void setDropPointId(Long dropPointId) {
-		this.dropPointId = dropPointId;
+	public void setBoardingType(BoardingType boardingType) {
+		this.boardingType = boardingType;
 	}
 
 	public Timestamp getCreatedTime() {
@@ -201,6 +209,14 @@ public class RegisterEvent {
 
 	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	
 }

@@ -28,4 +28,8 @@ public class RegisterService {
 	public List<RegisterEvent> saveBulkRegistrations(List<RegisterEvent> registerEvents) {
 		return this.registerDAO.saveAll(registerEvents);
 	}
+	
+	public List<RegisterEvent> getRegisteredEvents(Long associateId) {
+		return this.registerDAO.getEventsByAssociateId(associateId);
+	}
 }
